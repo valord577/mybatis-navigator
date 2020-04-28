@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    // See https://github.com/JetBrains/gradle-intellij-plugin/releases
+    id 'org.jetbrains.intellij' version '0.4.18'
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+     mavenCentral()
+//    maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+}
+
+//def artifactVersion = pluginVersion + '-' + intellijVersion
+def artifactVersion = pluginVersion
+
+group pluginGroup
+version artifactVersion
+
+dependencies { }
+
+intellij {
+    sandboxDirectory ".sandbox/${intellijVersion}"
+
+    version intellijVersion
+    plugins 'java'
+}
+patchPluginXml {
+    version artifactVersion
+
+    untilBuild intellijLatest
+
+    pluginDescription (file(_description_).text)
+    changeNotes (file(_changeNotes_).text)
+}
