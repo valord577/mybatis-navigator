@@ -1,7 +1,7 @@
 Mybatis Navigator
 ======================
 
-[![JetBrains Plugins](doc/.icon/jetbrains-plugin.svg)]()
+[![JetBrains Plugins](doc/.icon/jetbrains-plugin.svg)](https://plugins.jetbrains.com/plugin/14213-mybatis-navigator/versions)
 [![Icon Provider](doc/.icon/icon-provider.svg)]()
 
 ## The Navigator of MyBatis Mapper XML and Java Mapper Interface for IntelliJ IDEA.
