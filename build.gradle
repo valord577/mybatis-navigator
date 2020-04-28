@@ -11,8 +11,7 @@ repositories {
 //    maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
 }
 
-//def artifactVersion = pluginVersion + '-' + intellijVersion
-def artifactVersion = pluginVersion
+def artifactVersion = pluginVersion + '-build' + intellijLatest
 
 group pluginGroup
 version artifactVersion
