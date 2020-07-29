@@ -1,6 +1,7 @@
 package com.valord577.mybatis.navigator.kit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,29 +11,6 @@ import java.util.List;
  */
 public class Strings {
 
-    /**
-     * Linux and macOS.
-     */
-    private static final String LF = "\n";
-
-    /**
-     * Classic macOS.
-     */
-    private static final String CR = "\r";
-
-    /**
-     * Windows.
-     */
-    private static final String CRLF = "\r\n";
-
-    /**
-     * An empty immutable {@code String} array.
-     */
-    public static final String[] EMPTY_STRING_ARRAY = new String[0];
-
-    /**
-     * provate constructor
-     */
     private Strings() { }
 
     // Empty checks
@@ -238,9 +216,9 @@ public class Strings {
      *
      * @param str  the String to parse, may be {@code null}
      * @param separatorChar the separate character
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @return an list of parsed Strings, {@code null} if null String input
      */
-    public static String[] split(final String str, final char separatorChar) {
+    public static List<String> split(final String str, final char separatorChar) {
         // Performance tuned for 2.0 (JDK1.4)
 
         if (str == null) {
@@ -248,7 +226,7 @@ public class Strings {
         }
         final int len = str.length();
         if (len == 0) {
-            return EMPTY_STRING_ARRAY;
+            return Collections.emptyList();
         }
         final List<String> list = new ArrayList<>();
         int i = 0, start = 0;
@@ -268,7 +246,7 @@ public class Strings {
         if (match) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list;
     }
 
     /**
@@ -278,9 +256,9 @@ public class Strings {
      *
      * @param str  the String to parse, may be {@code null}
      * @param separatorChars the separate character
-     * @return an array of parsed Strings, {@code null} if null String input
+     * @return an list of parsed Strings, {@code null} if null String input
      */
-    public static String[] split(final String str, final String separatorChars) {
+    public static List<String> split(final String str, final String separatorChars) {
         // Performance tuned for 2.0 (JDK1.4)
         // Direct code is quicker than StringTokenizer.
         // Also, StringTokenizer uses isSpace() not isWhitespace()
@@ -290,7 +268,7 @@ public class Strings {
         }
         final int len = str.length();
         if (len == 0) {
-            return EMPTY_STRING_ARRAY;
+            return Collections.emptyList();
         }
         final List<String> list = new ArrayList<>();
         int sizePlus1 = 1;
@@ -355,17 +333,7 @@ public class Strings {
         if (match) {
             list.add(str.substring(start, i));
         }
-        return list.toArray(new String[list.size()]);
+        return list;
     }
 
-    /**
-     * init StringBuilder
-     */
-    public static StringBuilder initStrBuilder(StringBuilder builder) {
-        if (null == builder) {
-            return new StringBuilder();
-        }
-
-        return builder.delete(0, builder.length());
-    }
 }

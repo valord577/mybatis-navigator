@@ -34,7 +34,7 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element,
-                                            @NotNull Collection<? super RelatedItemLineMarkerInfo> result) {
+                                            @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
         // whether Psi is a java interface file
         if (!(element instanceof PsiIdentifier)) {
             return;
