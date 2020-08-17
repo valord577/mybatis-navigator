@@ -4,7 +4,14 @@ plugins {
     id 'org.jetbrains.intellij' version '0.4.21'
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
+def _javaVersion = JavaVersion.VERSION_11
+def _sourceCompat = JavaVersion.toVersion(_javaVersion)
+def _targetCompat = JavaVersion.toVersion(_javaVersion)
+
+java {
+    sourceCompatibility = _sourceCompat
+    targetCompatibility = _targetCompat
+}
 
 repositories {
     mavenLocal()
