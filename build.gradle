@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     // See https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'org.jetbrains.intellij' version '0.4.21'
+    id 'org.jetbrains.intellij' version '0.4.26'
 }
 
 def _javaVersion = JavaVersion.VERSION_11
@@ -16,7 +16,7 @@ java {
 repositories {
     mavenLocal()
     mavenCentral()
-//    maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+//    maven { url 'https://maven.aliyun.com/repository/public/' }
 }
 
 def artifactVersion = pluginVersion + '-build' + intellijLatest.replace('*', '^')
@@ -26,12 +26,19 @@ version artifactVersion
 
 dependencies { }
 
+compileJava {
+    options.encoding 'utf-8'
+    options.compilerArgs << '-Xlint:unchecked'
+    options.compilerArgs << '-Xlint:deprecation'
+}
+
 intellij {
     sandboxDirectory ".sandbox/${intellijVersion}"
 
     version intellijVersion
     plugins 'java'
 }
+
 patchPluginXml {
     version artifactVersion
 
