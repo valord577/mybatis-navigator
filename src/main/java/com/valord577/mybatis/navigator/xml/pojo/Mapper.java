@@ -11,7 +11,6 @@ import java.util.List;
  * <p>Mapping for MyBatis XML File</p>
  *
  * @author valor.
- * -- 2020/4/24 15:27
  */
 public interface Mapper extends DomElement {
 

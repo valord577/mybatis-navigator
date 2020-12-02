@@ -33,7 +33,6 @@ import java.util.List;
  * <p>Navigate to JAVA Mapper from XML.</p>
  *
  * @author valor.
- * -- 2020/4/27 10:33
  */
 public class XmlLineMarkerProvider extends RelatedItemLineMarkerProvider {
 

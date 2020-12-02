@@ -8,7 +8,6 @@ import com.intellij.util.xml.GenericAttributeValue;
  * <p>Mapping for MyBatis XML Tags ["select", "insert", "update", "delete"]</p>
  *
  * @author valor.
- * -- 2020/4/24 15:34
  */
 public interface Statement extends DomElement {
 

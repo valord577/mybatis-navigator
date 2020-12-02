@@ -28,7 +28,6 @@ import java.util.List;
  * <p>Navigate to XML from JAVA Mapper.</p>
  *
  * @author valor.
- * -- 2020/4/22 14:07
  */
 public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
@@ -58,7 +57,7 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
         DomService domService = DomService.getInstance();
         GlobalSearchScope scope = GlobalSearchScope.projectScope(project);
         List<DomFileElement<Mapper>> xmlFiles = domService.getFileElements(Mapper.class, project, scope);
-        if (null == xmlFiles || xmlFiles.isEmpty()) {
+        if (xmlFiles.isEmpty()) {
             return;
         }
         // filter

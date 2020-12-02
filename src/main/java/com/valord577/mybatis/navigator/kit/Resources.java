@@ -6,7 +6,6 @@ import javax.swing.Icon;
 
 /**
  * @author valor.
- * -- 2020/4/22 14:58
  */
 public class Resources {
 

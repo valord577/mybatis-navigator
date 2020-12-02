@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
  * <see>https://www.jetbrains.org/intellij/sdk/docs/reference_guide/frameworks_and_external_apis/xml_dom_api.html</see>
  *
  * @author valor.
- * -- 2020/4/26 16:12
  */
 public class MybatisXmlFileDescription extends DomFileDescription<Mapper> {
 

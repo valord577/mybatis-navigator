@@ -19,11 +19,11 @@ public class Strings {
      * <p>Checks if a CharSequence is empty ("") or null.</p>
      *
      * <pre>
-     * Strings.isEmpty(null)      = true
-     * Strings.isEmpty("")        = true
-     * Strings.isEmpty(" ")       = false
-     * Strings.isEmpty("bob")     = false
-     * Strings.isEmpty("  bob  ") = false
+     * StrKit.isEmpty(null)      = true
+     * StrKit.isEmpty("")        = true
+     * StrKit.isEmpty(" ")       = false
+     * StrKit.isEmpty("bob")     = false
+     * StrKit.isEmpty("  bob  ") = false
      * </pre>
      *
      * <p>NOTE: This method changed in Lang version 2.0.
@@ -41,11 +41,11 @@ public class Strings {
      * <p>Checks if a CharSequence is not empty ("") and not null.</p>
      *
      * <pre>
-     * Strings.isNotEmpty(null)      = false
-     * Strings.isNotEmpty("")        = false
-     * Strings.isNotEmpty(" ")       = true
-     * Strings.isNotEmpty("bob")     = true
-     * Strings.isNotEmpty("  bob  ") = true
+     * StrKit.isNotEmpty(null)      = false
+     * StrKit.isNotEmpty("")        = false
+     * StrKit.isNotEmpty(" ")       = true
+     * StrKit.isNotEmpty("bob")     = true
+     * StrKit.isNotEmpty("  bob  ") = true
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -61,11 +61,11 @@ public class Strings {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * Strings.isBlank(null)      = true
-     * Strings.isBlank("")        = true
-     * Strings.isBlank(" ")       = true
-     * Strings.isBlank("bob")     = false
-     * Strings.isBlank("  bob  ") = false
+     * StrKit.isBlank(null)      = true
+     * StrKit.isBlank("")        = true
+     * StrKit.isBlank(" ")       = true
+     * StrKit.isBlank("bob")     = false
+     * StrKit.isBlank("  bob  ") = false
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -81,11 +81,11 @@ public class Strings {
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * Strings.isNotBlank(null)      = false
-     * Strings.isNotBlank("")        = false
-     * Strings.isNotBlank(" ")       = false
-     * Strings.isNotBlank("bob")     = true
-     * Strings.isNotBlank("  bob  ") = true
+     * StrKit.isNotBlank(null)      = false
+     * StrKit.isNotBlank("")        = false
+     * StrKit.isNotBlank(" ")       = false
+     * StrKit.isNotBlank("bob")     = true
+     * StrKit.isNotBlank("  bob  ") = true
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
@@ -104,11 +104,11 @@ public class Strings {
      * references are considered to be equal. The comparison is <strong>case sensitive</strong>.</p>
      *
      * <pre>
-     * StringUtils.equals(null, null)   = true
-     * StringUtils.equals(null, "abc")  = false
-     * StringUtils.equals("abc", null)  = false
-     * StringUtils.equals("abc", "abc") = true
-     * StringUtils.equals("abc", "ABC") = false
+     * StrKit.equals(null, null)   = true
+     * StrKit.equals(null, "abc")  = false
+     * StrKit.equals("abc", null)  = false
+     * StrKit.equals("abc", "abc") = true
+     * StrKit.equals("abc", "ABC") = false
      * </pre>
      *
      * @param cs1  the first CharSequence, may be {@code null}
@@ -130,17 +130,41 @@ public class Strings {
 
     /**
      * <p>Compares two CharSequences, returning {@code true} if they represent
+     * not equal sequences of characters.</p>
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered to be equal. The comparison is <strong>case sensitive</strong>.</p>
+     *
+     *
+     * <pre>
+     * StrKit.isNotEquals(null, null)   = false
+     * StrKit.isNotEquals(null, "abc")  = true
+     * StrKit.isNotEquals("abc", null)  = true
+     * StrKit.isNotEquals("abc", "abc") = false
+     * StrKit.isNotEquals("abc", "ABC") = true
+     * </pre>
+     *
+     * @param cs1  the first CharSequence, may be {@code null}
+     * @param cs2  the second CharSequence, may be {@code null}
+     * @return {@code true} if the CharSequences are not equal (case-sensitive), or both {@code null}
+     */
+    public static boolean isNotEquals(final String cs1, final String cs2) {
+        return !equals(cs1, cs2);
+    }
+
+    /**
+     * <p>Compares two CharSequences, returning {@code true} if they represent
      * equal sequences of characters, ignoring case.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered equal. The comparison is <strong>case insensitive</strong>.</p>
      *
      * <pre>
-     * StringUtils.equalsIgnoreCase(null, null)   = true
-     * StringUtils.equalsIgnoreCase(null, "abc")  = false
-     * StringUtils.equalsIgnoreCase("abc", null)  = false
-     * StringUtils.equalsIgnoreCase("abc", "abc") = true
-     * StringUtils.equalsIgnoreCase("abc", "ABC") = true
+     * StrKit.equalsIgnoreCase(null, null)   = true
+     * StrKit.equalsIgnoreCase(null, "abc")  = false
+     * StrKit.equalsIgnoreCase("abc", null)  = false
+     * StrKit.equalsIgnoreCase("abc", "abc") = true
+     * StrKit.equalsIgnoreCase("abc", "ABC") = true
      * </pre>
      *
      * @param cs1  the first CharSequence, may be {@code null}
@@ -167,11 +191,11 @@ public class Strings {
      * references are considered to be equal. The comparison is case sensitive.</p>
      *
      * <pre>
-     * StringUtils.startsWith(null, null)      = true
-     * StringUtils.startsWith(null, "abc")     = false
-     * StringUtils.startsWith("abcdef", null)  = false
-     * StringUtils.startsWith("abcdef", "abc") = true
-     * StringUtils.startsWith("ABCDEF", "abc") = false
+     * StrKit.startsWith(null, null)      = true
+     * StrKit.startsWith(null, "abc")     = false
+     * StrKit.startsWith("abcdef", null)  = false
+     * StrKit.startsWith("abcdef", "abc") = true
+     * StrKit.startsWith("ABCDEF", "abc") = false
      * </pre>
      *
      * @see String#startsWith(String)
