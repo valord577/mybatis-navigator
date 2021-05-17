@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        // see - https://github.com/JetBrains/gradle-intellij-plugin/releases
+        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:0.7.3")
+    }
+}
+
+apply(plugin = "java")
+apply(plugin = "org.jetbrains.intellij")
+
+val jdkVersion: String = System.getProperty("java.version")
+val jdkCurrent = JavaVersion.toVersion(jdkVersion)
+
+// project compatibility
+val projectCompat = JavaVersion.VERSION_11
+if (!jdkCurrent.isCompatibleWith(projectCompat)) {
+    throw GradleException("This project is not compatible with the current JDK. \n  Require JDK: `${projectCompat}` or higher")
+}
+
+configure<JavaPluginExtension> {
+    sourceCompatibility = projectCompat
+    targetCompatibility = projectCompat
+}
+
+tasks.withType<JavaCompile> {
+    options.encoding = "utf-8"
+    options.compilerArgs.add("-Xlint:unchecked")
+    options.compilerArgs.add("-Xlint:deprecation")
+}
+
+repositories {
+    mavenLocal()
+//    mavenCentral()
+    maven { url = uri("https://maven.aliyun.com/repository/public/") }
+}
+
+dependencies { }
+
+val intellijVersion = extra["intellijVersion"] as String
+val intellijLatest = extra["intellijLatest"] as String
+
+val pluginGroup = extra["pluginGroup"] as String
+val pluginSchema = extra["pluginSchema"] as String
+val pluginVersion = extra["pluginVersion"] as String
+
+val artifactVersion = "${pluginVersion}-build${intellijLatest.replace('*', '^')}"
+
+group = pluginGroup
+version = artifactVersion
+
+configure<org.jetbrains.intellij.IntelliJPluginExtension> {
+    sandboxDirectory = ".sandbox/${intellijVersion}"
+
+    version = intellijVersion
+    setPlugins("java")
+}
+
+tasks.withType<org.jetbrains.intellij.tasks.PatchPluginXmlTask> {
+    version(artifactVersion)
+
+    untilBuild(intellijLatest)
+
+    pluginDescription(file("doc/changeNotes.html").readText())
+    changeNotes(file("doc/description.html").readText())
+}
