@@ -12,6 +12,7 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            - uses: actions/checkout@v2
             - name: Show workspace
-              run: echo "${PWD}" && ls -alh && env
+              run: env && echo -e "\n${PWD}\n" && ls -alh
 
