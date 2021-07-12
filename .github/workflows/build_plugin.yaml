@@ -7,12 +7,26 @@ jobs:
         env:
             JDK_URL: https://download.bell-sw.com/java/16.0.1+9/bellsoft-jdk16.0.1+9-linux-amd64-lite.tar.gz
             JDK_TAR: jdk.tar.gz
-            JDK_DIR: jdk
+            JDK_DIR: .jdk
+            PLUGIN_DIR: build/libs
 
         runs-on: ubuntu-latest
 
         steps:
             - uses: actions/checkout@v2
-            - name: Show workspace
-              run: env && echo -e "\n${PWD}\n" && ls -alh
-
+            - name: Show env & workspace
+              run: env && echo -e "\nPWD=${PWD}\n" && tree . -L 1
+            - name: Download JDK
+              run: wget "${JDK_URL}" -O "${JDK_TAR}"
+            - name: Extract JDK
+              run: mkdir "${JDK_DIR}" && tar -zxvf "${JDK_TAR}" -C "${JDK_DIR}" --strip-components=1
+            - name: Show JDK as tree
+              run: tree "${JDK_DIR}" -L 1
+            - name: Export JDK
+              run: export PATH="${JDK_DIR}/bin:${PATH}" && java -version
+            - name: Grant execute permission for gradlew
+              run: chmod +x gradlew
+            - name: Build with Gradle
+              run: ./gradlew buildPlugin
+            - name: Show build dir
+              run: tree "${PLUGIN_DIR}" -L 1
