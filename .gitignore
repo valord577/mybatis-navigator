@@ -2,26 +2,17 @@
 .DS_Store
 
 ### IntelliJ files
-.idea/*
+.idea
 *.iml
 out
 gen
-.sandbox
 
-!.idea/compiler.xml
-!.idea/dataSources.xml
-!.idea/deployment.xml
-!.idea/gradle.xml
-!.idea/jarRepositories.xml
-!.idea/kotlinc.xml
-!.idea/sqldialects.xml
-!.idea/vcs.xml
+### Project files
+.sandbox
 
 ### Gradle template
 build
 .gradle
-gradle-wrapper.jar
 
-# -- if using CI, comment the follow two files
-#gradlew
+# -- if using CI, uncomment the follow file(s)
 #gradlew.bat
