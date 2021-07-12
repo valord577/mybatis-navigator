@@ -19,7 +19,6 @@ import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
 import com.intellij.util.xml.GenericAttributeValue;
 import com.valord577.mybatis.navigator.kit.Resources;
-import com.valord577.mybatis.navigator.kit.Strings;
 import com.valord577.mybatis.navigator.xml.MybatisXmlFileDescription;
 import com.valord577.mybatis.navigator.xml.pojo.Mapper;
 import com.valord577.mybatis.navigator.xml.pojo.Statement;
@@ -83,7 +82,7 @@ public class XmlLineMarkerProvider extends RelatedItemLineMarkerProvider {
         }
         // blank namespace
         String namespaceStr = namespace.getRawText();
-        if (Strings.isBlank(namespaceStr)) {
+        if (null == namespaceStr || namespaceStr.isBlank()) {
             return;
         }
 
@@ -96,7 +95,7 @@ public class XmlLineMarkerProvider extends RelatedItemLineMarkerProvider {
         }
 
         List<PsiIdentifier> targets;
-        if (Strings.equals(MybatisXmlFileDescription.Tag.MAPPER.getMajor(), xmlAttribute.getName())) {
+        if (MybatisXmlFileDescription.Tag.MAPPER.getMajor().equals(xmlAttribute.getName())) {
             // xml mapper tag -> java mapper class name
             targets = new ArrayList<>(1);
             targets.add(psiClass.getNameIdentifier());

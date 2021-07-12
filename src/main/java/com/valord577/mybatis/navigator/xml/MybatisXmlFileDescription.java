@@ -4,7 +4,6 @@ import com.intellij.openapi.module.Module;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.xml.DomFileDescription;
-import com.valord577.mybatis.navigator.kit.Strings;
 import com.valord577.mybatis.navigator.xml.pojo.Mapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +23,7 @@ public class MybatisXmlFileDescription extends DomFileDescription<Mapper> {
     @Override
     public boolean isMyFile(@NotNull XmlFile file, @Nullable Module module) {
         XmlTag rootTag = file.getRootTag();
-        return null != rootTag && Strings.equals(rootTag.getName(), super.getRootTagName());
+        return null != rootTag && super.getRootTagName().equals(rootTag.getName());
     }
 
     public enum Tag {
@@ -51,7 +50,7 @@ public class MybatisXmlFileDescription extends DomFileDescription<Mapper> {
                 return false;
             }
 
-            return Strings.equals(m, tag.getMajor());
+            return tag.major.equals(m);
         }
 
         public String getValue() {

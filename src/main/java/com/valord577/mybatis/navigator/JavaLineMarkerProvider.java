@@ -14,7 +14,6 @@ import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomService;
 import com.intellij.util.xml.GenericAttributeValue;
 import com.valord577.mybatis.navigator.kit.Resources;
-import com.valord577.mybatis.navigator.kit.Strings;
 import com.valord577.mybatis.navigator.xml.pojo.Mapper;
 import com.valord577.mybatis.navigator.xml.pojo.Statement;
 import org.jetbrains.annotations.NotNull;
@@ -71,7 +70,7 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
             }
             // blank namespace
             String namespaceStr = namespace.getRawText();
-            if (Strings.isBlank(namespaceStr)) {
+            if (null == namespaceStr || namespaceStr.isBlank()) {
                 return true;
             }
 
@@ -92,7 +91,7 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
                 continue;
             }
             String namespaceStr = namespace.getRawText();
-            if (Strings.isBlank(namespaceStr)) {
+            if (null == namespaceStr || namespaceStr.isBlank()) {
                 continue;
             }
 
@@ -115,7 +114,7 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
                         }
 
                         final String idStr = id.getRawText();
-                        if (Strings.isBlank(idStr)) {
+                        if (null == idStr || idStr.isBlank()) {
                             continue;
                         }
 
