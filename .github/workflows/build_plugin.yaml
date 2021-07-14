@@ -27,7 +27,9 @@ jobs:
               run: tree "${JDK_DIR}" -L 1 && echo -e "\n" && "${JDK_DIR}/bin/java" -version
             - name: Grant execute permission for gradlew
               run: chmod +x gradlew
-            - name: Build with Gradle
+            - name: Gradle clean
+              run: ./gradlew clean -Dorg.gradle.daemon=false -Dorg.gradle.java.home="${JDK_DIR}" --warning-mode all
+            - name: Gradle build plugin
               run: ./gradlew buildPlugin -Dorg.gradle.daemon=false -Dorg.gradle.java.home="${JDK_DIR}" --warning-mode all
             - name: Show build dir
               run: tree "${PLUGIN_DIR}" -L 1
