@@ -32,6 +32,6 @@ jobs:
             - name: Show build dir
               run: tree "${PLUGIN_DIR}" -L 1
             - name: Compress plugin
-              run: tar -zcvf "${PLUGIN_TAR}" "PLUGIN_DIR"
+              run: tar -zcvf "${PLUGIN_TAR}" "${PLUGIN_DIR}"
             - name: Upload plugin
               run: curl -s -o "/dev/null" --user "api:${{secrets.API_KEY}}" "https://api.mailgun.net/v3/${{secrets.MAILGUN_DOMAIN}}/messages" -F form="Auto <no-replay@${{secrets.MAILGUN_DOMAIN}}>" -F to="${{secrets.MAIL_RECV}}" -F subject="${MAIL_SUBJ}" -F attachment="@${PLUGIN_DIR}/${PLUGIN_TAR}" -F text="${MAIL_COTX}"
