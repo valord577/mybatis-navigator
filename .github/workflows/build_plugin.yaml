@@ -9,6 +9,9 @@ jobs:
             JDK_TAR: jdk.tar.gz
             JDK_DIR: .jdk
             PLUGIN_DIR: build/libs
+            PLUGIN_TAR: plugin.tar.gz
+            MAIL_SUBJ: CI - 'mybatis-navigator'
+            MAIL_COTX: This email comes from github action.
 
         runs-on: ubuntu-latest
 
@@ -28,3 +31,7 @@ jobs:
               run: ./gradlew buildPlugin -Dorg.gradle.java.home="${JDK_DIR}"
             - name: Show build dir
               run: tree "${PLUGIN_DIR}" -L 1
+            - name: Compress plugin
+              run: tar -zcvf "${PLUGIN_TAR}" "PLUGIN_DIR"
+            - name: Upload plugin
+              run: curl -s -o "/dev/null" --user "api:${{secrets.API_KEY}}" "https://api.mailgun.net/v3/${{secrets.MAILGUN_DOMAIN}}/messages" -F form="Auto <no-replay@${{secrets.MAILGUN_DOMAIN}}>" -F to="${{secrets.MAIL_RECV}}" -F subject="${MAIL_SUBJ}" -F attachment="@${PLUGIN_DIR}/${PLUGIN_TAR}" -F text="${MAIL_COTX}"
