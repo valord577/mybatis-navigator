@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         // see - https://github.com/JetBrains/gradle-intellij-plugin/releases
-        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:0.7.3")
+        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:1.1.3")
     }
 }
 
@@ -52,17 +52,17 @@ group = pluginGroup
 version = artifactVersion
 
 configure<org.jetbrains.intellij.IntelliJPluginExtension> {
-    sandboxDirectory = ".sandbox/${intellijVersion}"
+    sandboxDir.set(".sandbox/${intellijVersion}")
 
-    version = intellijVersion
-    setPlugins("java")
+    version.set(intellijVersion)
+    plugins.set(listOf("java"))
 }
 
 tasks.withType<org.jetbrains.intellij.tasks.PatchPluginXmlTask> {
-    version(artifactVersion)
+    version.set(artifactVersion)
 
-    untilBuild(intellijLatest)
+    untilBuild.set(intellijLatest)
 
-    pluginDescription(file("doc/changeNotes.html").readText())
-    changeNotes(file("doc/description.html").readText())
+    pluginDescription.set(file("doc/changeNotes.html").readText())
+    changeNotes.set(file("doc/description.html").readText())
 }
