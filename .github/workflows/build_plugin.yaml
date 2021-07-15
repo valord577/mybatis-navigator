@@ -31,4 +31,4 @@ jobs:
             - uses: actions/upload-artifact@v2
               with:
                   name: build-artifact
-                  path: ${PLUGIN_DIR}
+                  path: ${{ env.PLUGIN_DIR }}
