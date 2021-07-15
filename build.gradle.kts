@@ -52,7 +52,7 @@ group = pluginGroup
 version = artifactVersion
 
 configure<org.jetbrains.intellij.IntelliJPluginExtension> {
-    sandboxDir.set(".sandbox/${intellijVersion}")
+//    sandboxDir.set(".sandbox/${intellijVersion}")
 
     version.set(intellijVersion)
     plugins.set(listOf("java"))
