@@ -63,6 +63,6 @@ tasks.withType<org.jetbrains.intellij.tasks.PatchPluginXmlTask> {
 
     untilBuild.set(intellijLatest)
 
-    pluginDescription.set(file("doc/changeNotes.html").readText())
-    changeNotes.set(file("doc/description.html").readText())
+    pluginDescription.set(file("doc/description.html").readText())
+    changeNotes.set(file("doc/changeNotes.html").readText())
 }
