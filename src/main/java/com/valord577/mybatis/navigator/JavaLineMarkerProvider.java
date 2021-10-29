@@ -3,6 +3,11 @@ package com.valord577.mybatis.navigator;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
+import com.intellij.execution.Location;
+import com.intellij.execution.PsiLocation;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleManager;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
@@ -47,14 +52,21 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
             return;
         }
 
-        // this project
-        final Project project = element.getProject();
         // package
         final String qualifiedName = jif.getQualifiedName();
 
+        // this project
+        final Project project = jif.getProject();
+        GlobalSearchScope scope = GlobalSearchScope.projectScope(project);
+
+        // https://github.com/valord577/mybatis-navigator/issues/1
+        Module module = ModuleUtilCore.findModuleForPsiElement(element);
+        if (null != module) {
+            scope = GlobalSearchScope.moduleScope(module);
+        }
+
         // search xml files
         DomService domService = DomService.getInstance();
-        GlobalSearchScope scope = GlobalSearchScope.projectScope(project);
         List<DomFileElement<Mapper>> xmlFiles = domService.getFileElements(Mapper.class, project, scope);
         if (xmlFiles.isEmpty()) {
             return;
@@ -131,9 +143,9 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
             return;
         }
         NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder
-                .create(Resources.TO_XML)
-                .setTargets(xmlTags)
-                .setTooltipText("Navigate to mybatis XML file.");
+            .create(Resources.TO_XML)
+            .setTargets(xmlTags)
+            .setTooltipText("Navigate to mybatis XML file.");
         result.add(builder.createLineMarkerInfo(element));
     }
 

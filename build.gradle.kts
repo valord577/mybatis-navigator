@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         // see - https://github.com/JetBrains/gradle-intellij-plugin/releases
-        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:1.1.4")
+        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:1.2.1")
     }
 }
 
@@ -33,8 +33,7 @@ tasks.withType<JavaCompile> {
 
 repositories {
     mavenLocal()
-//    mavenCentral()
-    maven { url = uri("https://maven.aliyun.com/repository/public/") }
+    mavenCentral()
 }
 
 dependencies { }

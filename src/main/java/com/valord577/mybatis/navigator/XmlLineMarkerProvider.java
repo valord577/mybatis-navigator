@@ -3,6 +3,8 @@ package com.valord577.mybatis.navigator;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
@@ -89,6 +91,12 @@ public class XmlLineMarkerProvider extends RelatedItemLineMarkerProvider {
         // search java mapper
         JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
         GlobalSearchScope scope = GlobalSearchScope.projectScope(project);
+
+        // https://github.com/valord577/mybatis-navigator/issues/1
+        Module module = ModuleUtilCore.findModuleForPsiElement(element);
+        if (null != module) {
+            scope = GlobalSearchScope.moduleScope(module);
+        }
         PsiClass psiClass = javaPsiFacade.findClass(namespaceStr, scope);
         if (null == psiClass) {
             return;
@@ -116,13 +124,10 @@ public class XmlLineMarkerProvider extends RelatedItemLineMarkerProvider {
             }
         }
 
-        if (targets.isEmpty()) {
-            return;
-        }
         NavigationGutterIconBuilder<PsiElement> builder =
-                NavigationGutterIconBuilder.create(Resources.TO_JAVA).
-                        setTargets(targets).
-                        setTooltipText("Navigate to java Mapper file.");
+            NavigationGutterIconBuilder.create(Resources.TO_JAVA).
+                setTargets(targets).
+                setTooltipText("Navigate to java Mapper file.");
         /* According to the warn of Intellij, use first child instead. */
         result.add(builder.createLineMarkerInfo(xmlAttribute.getFirstChild()));
     }

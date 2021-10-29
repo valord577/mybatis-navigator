@@ -1,8 +1,0 @@
-# see https://git-scm.com/docs/gitattributes
-# see https://github.com/alexkaratarakis/gitattributes
-
-*          text=auto
-*.bat      text eol=crlf
-*.sh       text eol=lf
-*.md       text eol=lf
-*.gradle   text eol=lf

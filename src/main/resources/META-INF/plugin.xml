@@ -1,27 +1,27 @@
-<idea-plugin url="">
-    <id>com.valord577.mybatis-navigator</id>
-    <name>mybatis-navigator</name>
-    <vendor email="valord577@gmail.com" url="https://github.com/valord577/mybatis-navigator">
-        Valord577
-    </vendor>
+<idea-plugin url="" require-restart="false">
+  <id>com.valord577.mybatis-navigator</id>
+  <name>mybatis-navigator</name>
+  <vendor email="valord577@gmail.com" url="https://github.com/valord577/mybatis-navigator">
+    Valord577
+  </vendor>
 
-    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.modules.xml</depends>
-    <depends>com.intellij.java</depends>
+  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.intellij.modules.xml</depends>
+  <depends>com.intellij.java</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <dom.fileMetaData implementation="com.valord577.mybatis.navigator.xml.MybatisXmlFileDescription"
-                          rootTagName="mapper"/>
-        <codeInsight.lineMarkerProvider language="JAVA"
-                                        implementationClass="com.valord577.mybatis.navigator.JavaLineMarkerProvider"/>
-        <codeInsight.lineMarkerProvider language="XML"
-                                        implementationClass="com.valord577.mybatis.navigator.XmlLineMarkerProvider"/>
-    </extensions>
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+    <dom.fileMetaData implementation="com.valord577.mybatis.navigator.xml.MybatisXmlFileDescription"
+                      rootTagName="mapper"/>
+    <codeInsight.lineMarkerProvider language="JAVA"
+                                    implementationClass="com.valord577.mybatis.navigator.JavaLineMarkerProvider"/>
+    <codeInsight.lineMarkerProvider language="XML"
+                                    implementationClass="com.valord577.mybatis.navigator.XmlLineMarkerProvider"/>
+  </extensions>
 
-    <actions>
-        <!-- Add your actions here -->
-    </actions>
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
 </idea-plugin>

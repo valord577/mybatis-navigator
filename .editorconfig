@@ -8,20 +8,28 @@ charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 
+trim_trailing_whitespace = true
+
+[*.java]
 indent_size = 4
 indent_style = space
 
-trim_trailing_whitespace = true
+[*.xml]
+indent_size = 2
+indent_style = space
+
+[*.{yaml, yml}]
+indent_size = 2
+indent_style = space
 
 [*.{md, markdown}]
 trim_trailing_whitespace = false
 
-[*.{html, css}]
-indent_size = 2
-
 [*.sh]
 indent_size = 2
+indent_style = space
 
 [*.bat]
-end_of_line = crlf
 indent_size = 2
+indent_style = space
+end_of_line = crlf
