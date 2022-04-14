@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         // see - https://github.com/JetBrains/gradle-intellij-plugin/releases
-        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:1.3.0")
+        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:1.5.2")
     }
 }
 
