@@ -5,30 +5,25 @@ on: workflow_dispatch
 jobs:
   build:
     env:
-      JDK_URL: https://download.bell-sw.com/java/17.0.1+12/bellsoft-jdk17.0.1+12-linux-amd64-lite.tar.gz
-      JDK_TAR: jdk.tar.gz
-      JDK_DIR: .jdk
       PLUGIN_DIR: build/libs
 
     runs-on: ubuntu-latest
+    container: bellsoft/liberica-openjdk-debian:17
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Git checkout
+        uses: actions/checkout@v3
       - name: Show env & workspace
         run: env && echo -e "\n${PWD}\n" && ls -alh
-      - name: Download JDK
-        run: wget "${JDK_URL}" -O "${JDK_TAR}"
-      - name: Extract JDK
-        run: mkdir "${JDK_DIR}" && tar -zxvf "${JDK_TAR}" -C "${JDK_DIR}" --strip-components=1
-      - name: Show JDK as tree
-        run: tree "${JDK_DIR}" -L 1 && echo -e "\n" && "${JDK_DIR}/bin/java" -version
+      - name: Show JDK
+        run: command -v java && java -version
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with gradle
-        run: ./gradlew buildPlugin -Dorg.gradle.daemon=false -Dorg.gradle.java.home="${JDK_DIR}" --warning-mode all
+        run: ./gradlew buildPlugin -Dorg.gradle.daemon=false --warning-mode all
       - name: Show build dir
-        run: tree "${PLUGIN_DIR}" -L 1
-      - uses: actions/upload-artifact@v2
+        run: ls -alh -- "${PLUGIN_DIR}"
+      - uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: ${{ env.PLUGIN_DIR }}

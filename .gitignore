@@ -2,10 +2,14 @@
 .DS_Store
 
 ### IntelliJ files
+.run
 .idea
 *.iml
 out
 gen
+
+### VSCode files
+.vscode
 
 ### Project files
 .sandbox

@@ -1,28 +1,27 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-    }
-    dependencies {
-        // see - https://github.com/JetBrains/gradle-intellij-plugin/releases
-        classpath("org.jetbrains.intellij.plugins:gradle-intellij-plugin:1.5.2")
-    }
-}
+fun prop(key: String) = project.findProperty(key).toString()
 
-apply(plugin = "java")
-apply(plugin = "org.jetbrains.intellij")
+plugins {
+    id("java")
+    // https://plugins.gradle.org/plugin/org.jetbrains.intellij
+    // https://github.com/JetBrains/gradle-intellij-plugin/releases
+    id("org.jetbrains.intellij") version "1.7.0"
+}
 
 val jdkVersion: String = System.getProperty("java.version")
 val jdkCurrent = JavaVersion.toVersion(jdkVersion)
 
 // project compatibility
-val projectCompat = JavaVersion.VERSION_11
-if (!jdkCurrent.isCompatibleWith(projectCompat)) {
-    throw GradleException("This project is not compatible with the current JDK. \n  Require JDK: `${projectCompat}` or higher")
+val projVersion = JavaVersion.VERSION_11
+if (!jdkCurrent.isCompatibleWith(projVersion)) {
+    throw GradleException(
+        "This project is not compatible with the current JDK. \n" +
+                "  Require JDK: `${projVersion}` or higher"
+    )
 }
 
 configure<JavaPluginExtension> {
-    sourceCompatibility = projectCompat
-    targetCompatibility = projectCompat
+    sourceCompatibility = projVersion
+    targetCompatibility = projVersion
 }
 
 tasks.withType<JavaCompile> {
@@ -38,30 +37,40 @@ repositories {
 
 dependencies { }
 
-val intellijVersion = extra["intellijVersion"] as String
-val intellijLatest = extra["intellijLatest"] as String
+val intellijVersion = prop("intellijVersion")
+val intellijLatest = prop("intellijLatest")
 
-val pluginGroup = extra["pluginGroup"] as String
-val pluginSchema = extra["pluginSchema"] as String
-val pluginVersion = extra["pluginVersion"] as String
+val pluginGroup = prop("pluginGroup")
+val pluginSchema = prop("pluginSchema")
+val pluginVersion = prop("pluginVersion")
 
-val artifactVersion = "${pluginVersion}-build${intellijLatest.replace('*', '^')}"
+val artifactVersion =
+    "${pluginVersion}-build${intellijLatest.replace('*', '^')}"
 
 group = pluginGroup
 version = artifactVersion
 
-configure<org.jetbrains.intellij.IntelliJPluginExtension> {
-//    sandboxDir.set(".sandbox/${intellijVersion}")
+intellij {
+    //sandboxDir.set(".sandbox/${intellijVersion}")
 
+    pluginName.set(pluginSchema)
     version.set(intellijVersion)
-    plugins.set(listOf("java"))
+    plugins.set(
+        listOf("com.intellij.java")
+    )
 }
 
-tasks.withType<org.jetbrains.intellij.tasks.PatchPluginXmlTask> {
-    version.set(artifactVersion)
+tasks {
+    buildSearchableOptions {
+        enabled = false
+    }
 
-    untilBuild.set(intellijLatest)
+    patchPluginXml {
+        version.set(artifactVersion)
 
-    pluginDescription.set(file("doc/description.html").readText())
-    changeNotes.set(file("doc/changeNotes.html").readText())
+        untilBuild.set(intellijLatest)
+
+        pluginDescription.set(file("doc/description.html").readText())
+        changeNotes.set(file("doc/changeNotes.html").readText())
+    }
 }
