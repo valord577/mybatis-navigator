@@ -23,7 +23,8 @@ jobs:
         run: ./gradlew buildPlugin -Dorg.gradle.daemon=false --warning-mode all
       - name: Show build dir
         run: ls -alh -- "${PLUGIN_DIR}"
-      - uses: actions/upload-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: ${{ env.PLUGIN_DIR }}
