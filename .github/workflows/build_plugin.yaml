@@ -20,7 +20,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with gradle
-        run: ./gradlew buildPlugin -Dorg.gradle.daemon=false --warning-mode all
+        run: |
+          ./gradlew buildPlugin \
+            -Dorg.gradle.daemon=false --warning-mode all \
+            org.gradle.jvmargs="-Xmx4096m -XX:+UseZGC -Djava.complier=NONE -Dfile.encoding=UTF-8"
       - name: Show build dir
         run: ls -alh -- "${PLUGIN_DIR}"
       - name: Upload artifact

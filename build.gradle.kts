@@ -11,7 +11,7 @@ val jdkVersion: String = System.getProperty("java.version")
 val jdkCurrent = JavaVersion.toVersion(jdkVersion)
 
 // project compatibility
-val projVersion = JavaVersion.VERSION_11
+val projVersion = JavaVersion.VERSION_17
 if (!jdkCurrent.isCompatibleWith(projVersion)) {
     throw GradleException(
         "This project is not compatible with the current JDK. \n" +
