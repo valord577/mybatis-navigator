@@ -4,7 +4,7 @@ plugins {
     id("java")
     // https://plugins.gradle.org/plugin/org.jetbrains.intellij
     // https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id("org.jetbrains.intellij") version "1.7.0"
+    id("org.jetbrains.intellij") version "1.9.0"
 }
 
 val jdkVersion: String = System.getProperty("java.version")
