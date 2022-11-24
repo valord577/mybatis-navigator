@@ -10,7 +10,11 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * <p>Allow mybatis xml files to be indexed</p>
- * <see>https://www.jetbrains.org/intellij/sdk/docs/reference_guide/frameworks_and_external_apis/xml_dom_api.html</see>
+ * <see>
+ *   <a href="https://plugins.jetbrains.com/docs/intellij/xml-dom-api.html">
+ *   Intellij XML DOM API
+ *   </a>
+ * </see>
  *
  * @author valor.
  */

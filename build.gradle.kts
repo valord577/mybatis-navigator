@@ -4,7 +4,7 @@ plugins {
     id("java")
     // https://plugins.gradle.org/plugin/org.jetbrains.intellij
     // https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.10.0"
 }
 
 val jdkVersion: String = System.getProperty("java.version")
@@ -37,24 +37,22 @@ repositories {
 
 dependencies { }
 
-val intellijVersion = prop("intellijVersion")
-val intellijLatest = prop("intellijLatest")
+val intellijPlatform = prop("intellijPlatform")
 
 val pluginGroup = prop("pluginGroup")
 val pluginSchema = prop("pluginSchema")
 val pluginVersion = prop("pluginVersion")
 
-val artifactVersion =
-    "${pluginVersion}-build${intellijLatest.replace('*', '^')}"
+val artifactVersion = "${pluginVersion}-build${intellijPlatform}"
 
 group = pluginGroup
 version = artifactVersion
 
 intellij {
-    //sandboxDir.set(".sandbox/${intellijVersion}")
+    // sandboxDir.set(".sandbox/${intellijPlatform}-EAP-SNAPSHOT")
 
     pluginName.set(pluginSchema)
-    version.set(intellijVersion)
+    version.set("${intellijPlatform}-EAP-SNAPSHOT")
     plugins.set(
         listOf("com.intellij.java")
     )
@@ -68,7 +66,7 @@ tasks {
     patchPluginXml {
         version.set(artifactVersion)
 
-        untilBuild.set(intellijLatest)
+        untilBuild.set("${intellijPlatform}.*")
 
         pluginDescription.set(file("doc/description.html").readText())
         changeNotes.set(file("doc/changeNotes.html").readText())

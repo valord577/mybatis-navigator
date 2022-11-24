@@ -40,20 +40,16 @@ public class XmlLineMarkerProvider extends RelatedItemLineMarkerProvider {
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element,
                                             @NotNull Collection<? super RelatedItemLineMarkerInfo<?>> result) {
-        if (!(element instanceof XmlAttribute)) {
+        if (!(element instanceof XmlAttribute xmlAttribute)) {
             return;
         }
-
         PsiFile psiFile = element.getContainingFile();
         if (null == psiFile) {
             return;
         }
-        if (!(psiFile instanceof XmlFile)) {
+        if (!(psiFile instanceof XmlFile xmlFile)) {
             return;
         }
-
-        XmlFile xmlFile = (XmlFile) psiFile;
-        XmlAttribute xmlAttribute = (XmlAttribute) element;
 
         XmlTag xmlTag = xmlAttribute.getParent();
         if (null == xmlTag) {
@@ -115,7 +111,7 @@ public class XmlLineMarkerProvider extends RelatedItemLineMarkerProvider {
             }
             PsiMethod[] psiMethods = psiClass.findMethodsByName(xmlAttribute.getValue(), true);
             int length = psiMethods.length;
-            if (length <= 0) {
+            if (length < 1) {
                 return;
             }
             targets = new ArrayList<>(length);

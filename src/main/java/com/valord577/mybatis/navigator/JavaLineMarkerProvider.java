@@ -107,13 +107,11 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
             if (namespaceStr.equals(qualifiedName)) {
                 if (parent instanceof PsiClass) {
                     xmlTags.add(namespace.getXmlTag());
-                } else if (parent instanceof PsiMethod) {
+                } else if (parent instanceof PsiMethod psiMethod) {
                     List<Statement> statements = mapper.getStatements();
                     if (null == statements || statements.isEmpty()) {
                         continue;
                     }
-
-                    PsiMethod psiMethod = (PsiMethod) parent;
                     final String method = psiMethod.getName();
 
                     for (Statement statement : statements) {
@@ -152,8 +150,7 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
     @Nullable
     private PsiClass getInterface(@NotNull PsiElement parent) {
         // java PsiIdentifier
-        if (parent instanceof PsiClass) {
-            PsiClass psiClass = ((PsiClass) parent);
+        if (parent instanceof PsiClass psiClass) {
             if (psiClass.isInterface()) {
                 return psiClass;
             }
