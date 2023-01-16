@@ -1,0 +1,20 @@
+static def IncompatibleWith(JavaVersion current, JavaVersion target) {
+    return !current.isCompatibleWith(target)
+}
+
+def compileJvmTarget = JavaVersion.toVersion(ext.get("compileJvmTarget"))
+def currentJdkVersion = JavaVersion.current()
+if (IncompatibleWith(currentJdkVersion, compileJvmTarget)) {
+    throw new GradleException(
+            "This project is not compatible with the current JDK. \n" +
+                    "  Require JDK: ${compileJvmTarget} or higher."
+    )
+}
+
+tasks.register('clean') {
+    delete rootProject.buildDir
+}
+
+ext.properties.entrySet().forEach({
+    System.out.println("extra['${it.key}']: ${it.value}")
+})

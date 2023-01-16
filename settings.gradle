@@ -1,2 +1,32 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            def id = it.requested.id.getId()
+            System.out.println("use plugin: '${id}'")
+
+            switch (id) {
+                case 'org.jetbrains.intellij':
+                    useVersion("${intellijGradle}")
+                    break
+            }
+        }
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    repositories {}
+}
+
+include ':app'
+
 rootProject.name = 'mybatis-navigator'
-rootProject.buildFileName = "build.gradle.kts"
+rootProject.buildFileName = "build.gradle"
+
+rootProject.children.forEach(e -> {
+    e.buildFileName = "build.gradle.kts"
+})

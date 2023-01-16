@@ -17,6 +17,3 @@ gen
 ### Gradle template
 build
 .gradle
-
-# -- if using CI, uncomment the follow file(s)
-#gradlew.bat

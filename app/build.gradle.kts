@@ -1,27 +1,15 @@
-fun prop(key: String) = project.findProperty(key).toString()
+fun prop(key: String) = extra[key].toString()
 
 plugins {
     id("java")
-    // https://plugins.gradle.org/plugin/org.jetbrains.intellij
-    // https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id("org.jetbrains.intellij") version "1.10.0"
+    id("org.jetbrains.intellij")
 }
 
-val jdkVersion: String = System.getProperty("java.version")
-val jdkCurrent = JavaVersion.toVersion(jdkVersion)
-
-// project compatibility
-val projVersion = JavaVersion.VERSION_17
-if (!jdkCurrent.isCompatibleWith(projVersion)) {
-    throw GradleException(
-        "This project is not compatible with the current JDK. \n" +
-                "  Require JDK: `${projVersion}` or higher"
-    )
-}
+val compileJvmTarget = JavaVersion.toVersion(prop("compileJvmTarget"))
 
 configure<JavaPluginExtension> {
-    sourceCompatibility = projVersion
-    targetCompatibility = projVersion
+    sourceCompatibility = compileJvmTarget
+    targetCompatibility = compileJvmTarget
 }
 
 tasks.withType<JavaCompile> {
