@@ -37,7 +37,7 @@ group = pluginGroup
 version = artifactVersion
 
 intellij {
-    // sandboxDir.set(".sandbox/${intellijPlatform}-EAP-SNAPSHOT")
+    sandboxDir.set(".sandbox/${intellijPlatform}-EAP-SNAPSHOT")
 
     pluginName.set(pluginSchema)
     version.set("${intellijPlatform}-EAP-SNAPSHOT")
@@ -49,6 +49,12 @@ intellij {
 tasks {
     buildSearchableOptions {
         enabled = false
+    }
+    publishPlugin {
+        channels.set(
+            listOf("Stable")
+        )
+        token.set(System.getenv(prop("pluginPublishTokenKey")))
     }
 
     patchPluginXml {
