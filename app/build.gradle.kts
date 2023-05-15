@@ -7,7 +7,7 @@ plugins {
 
 val compileJvmTarget = JavaVersion.toVersion(prop("compileJvmTarget"))
 
-configure<JavaPluginExtension> {
+java {
     sourceCompatibility = compileJvmTarget
     targetCompatibility = compileJvmTarget
 }
@@ -38,6 +38,7 @@ version = artifactVersion
 
 intellij {
     sandboxDir.set(".sandbox/${intellijPlatform}-EAP-SNAPSHOT")
+    instrumentCode.set(false)
 
     pluginName.set(pluginSchema)
     version.set("${intellijPlatform}-EAP-SNAPSHOT")

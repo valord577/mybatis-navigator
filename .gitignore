@@ -1,12 +1,15 @@
 ### Darwin(mac) files
 .DS_Store
 
+### Java files
+out
+gen
+bin
+
 ### IntelliJ files
 .run
 .idea
 *.iml
-out
-gen
 
 ### VSCode files
 .vscode
