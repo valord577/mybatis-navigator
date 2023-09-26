@@ -3,6 +3,7 @@ Mybatis Navigator
 
 [![JetBrains Plugins](.github/img/1.svg)](https://plugins.jetbrains.com/plugin/14213-mybatis-navigator)
 ![Icon Provider](.github/img/2.svg)
+[![CI - build plugin](https://github.com/valord577/mybatis-navigator/actions/workflows/build_plugin.yaml/badge.svg)](https://github.com/valord577/mybatis-navigator/actions/workflows/build_plugin.yaml)
 
 ## Vision
 
