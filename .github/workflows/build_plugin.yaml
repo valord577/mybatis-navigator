@@ -1,6 +1,9 @@
 name: CI - build plugin
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
