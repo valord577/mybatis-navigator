@@ -25,9 +25,7 @@ jobs:
         run: env && echo -e "\n${PWD}\n" && ls -alh
       - name: show jdk
         run: command -v java && java -version
-      - name: setup gradle
-        uses: gradle/actions/setup-gradle@v3
-      - name: build
+      - name: build with gradle
         run: |
           bash gradlew.sh buildPlugin \
             -Dorg.gradle.daemon=false --warning-mode all \
