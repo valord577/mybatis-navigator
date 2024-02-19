@@ -1,5 +1,11 @@
 package com.valord577.mybatis.navigator;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
@@ -24,11 +30,6 @@ import com.valord577.mybatis.navigator.kit.Resources;
 import com.valord577.mybatis.navigator.xml.MybatisXmlFileDescription;
 import com.valord577.mybatis.navigator.xml.pojo.Mapper;
 import com.valord577.mybatis.navigator.xml.pojo.Statement;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * <p>Navigate to JAVA Mapper from XML.</p>

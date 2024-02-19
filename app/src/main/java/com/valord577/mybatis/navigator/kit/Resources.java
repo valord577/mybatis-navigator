@@ -1,8 +1,8 @@
 package com.valord577.mybatis.navigator.kit;
 
-import com.intellij.icons.AllIcons;
-
 import javax.swing.Icon;
+
+import com.intellij.icons.AllIcons;
 
 /**
  * @author valor.

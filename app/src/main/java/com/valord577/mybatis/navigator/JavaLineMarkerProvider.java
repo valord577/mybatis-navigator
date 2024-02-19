@@ -1,5 +1,12 @@
 package com.valord577.mybatis.navigator;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
@@ -18,12 +25,6 @@ import com.intellij.util.xml.GenericAttributeValue;
 import com.valord577.mybatis.navigator.kit.Resources;
 import com.valord577.mybatis.navigator.xml.pojo.Mapper;
 import com.valord577.mybatis.navigator.xml.pojo.Statement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * <p>Navigate to XML from JAVA Mapper.</p>
@@ -155,8 +156,8 @@ public class JavaLineMarkerProvider extends RelatedItemLineMarkerProvider {
                 return psiClass;
             }
         }
-        if (parent instanceof PsiMethod) {
-            PsiClass psiClass = ((PsiMethod) parent).getContainingClass();
+        if (parent instanceof PsiMethod psiMethod) {
+            PsiClass psiClass = psiMethod.getContainingClass();
             if (null != psiClass && psiClass.isInterface()) {
                 return psiClass;
             }
