@@ -2,8 +2,13 @@ name: CI - build plugin
 
 on:
   push:
+    branches:
+      - master
     tags:
       - '**'
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -11,26 +16,26 @@ jobs:
       PLUGIN_DIR: app/build/libs
 
     runs-on: ubuntu-latest
-    container: bellsoft/liberica-openjdk-debian:17
+    container: bellsoft/liberica-openjdk-debian:21
 
     steps:
-      - name: Git checkout
-        uses: actions/checkout@v3
-      - name: Show env & workspace
+      - name: git checkout src
+        uses: actions/checkout@v4
+      - name: show env & workspace
         run: env && echo -e "\n${PWD}\n" && ls -alh
-      - name: Show JDK
+      - name: show jdk
         run: command -v java && java -version
-      - name: Grant execute permission for gradlew.sh
-        run: chmod +x gradlew.sh
-      - name: Build with gradle
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: build
         run: |
-          ./gradlew.sh buildPlugin \
+          bash gradlew.sh buildPlugin \
             -Dorg.gradle.daemon=false --warning-mode all \
             -Dorg.gradle.jvmargs="-Xmx4096m -XX:+UseZGC -Djava.complier=NONE -Dfile.encoding=UTF-8"
-      - name: Show build dir
+      - name: show build dir
         run: ls -alh -- "${PLUGIN_DIR}"
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: ${{ env.PLUGIN_DIR }}
