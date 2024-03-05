@@ -21,9 +21,7 @@ jobs:
     steps:
       - name: git checkout src
         uses: actions/checkout@v4
-      - name: show env & workspace
-        run: env && echo -e "\n${PWD}\n" && ls -alh
-      - name: show jdk
+      - name: inspect openjdk
         run: command -v java && java -version
       - name: build with gradle
         run: |
