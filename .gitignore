@@ -1,22 +1,17 @@
-### Darwin(mac) files
 .DS_Store
 
-### Java files
-out
-gen
-bin
-
-### IntelliJ files
+### IntelliJ
 .run
 .idea
 *.iml
 
-### VSCode files
+### VSCode
 .vscode
 
-### Project files
+### Project
 .sandbox
+.intellijPlatform
 
-### Gradle template
+### Gradle
 build
 .gradle

@@ -9,7 +9,10 @@ pluginManagement {
             System.out.println("use plugin: '${id}'")
 
             switch (id) {
-                case 'org.jetbrains.intellij':
+                case 'org.jetbrains.intellij.platform':
+                    useVersion("${intellijGradle}")
+                    break
+                case 'org.jetbrains.intellij.platform.module':
                     useVersion("${intellijGradle}")
                     break
             }
