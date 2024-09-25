@@ -1,69 +1,78 @@
 fun prop(key: String) = extra[key].toString()
 
+val artifactVersion = "${prop("pluginVersion")}-build${prop("intellijPlatform")}"
+
 plugins {
-    id("java")
-    id("org.jetbrains.intellij")
+    id("org.jetbrains.intellij.platform")
 }
-
-val compileJvmTarget = JavaVersion.toVersion(prop("compileJvmTarget"))
-
-java {
-    sourceCompatibility = compileJvmTarget
-    targetCompatibility = compileJvmTarget
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "utf-8"
-    options.compilerArgs.add("-Xlint:unchecked")
-    options.compilerArgs.add("-Xlint:deprecation")
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
+
+    intellijPlatform {
+        snapshots()
+        localPlatformArtifacts()
+        intellijDependencies()
+        jetbrainsRuntime()
+    }
+}
+dependencies {
+    intellijPlatform {
+        create(
+            type = "IC",
+            version = "${prop("intellijPlatform")}-EAP-SNAPSHOT",
+            useInstaller = false
+        )
+        bundledPlugin("com.intellij.java")
+        jetbrainsRuntime()
+    }
 }
 
-dependencies { }
+intellijPlatform {
+    buildSearchableOptions = false
+    instrumentCode = false
 
-val intellijPlatform = prop("intellijPlatform")
+    pluginConfiguration {
+        id = "${prop("pluginGroup")}.${prop("pluginSchema")}"
+        name = prop("pluginSchema")
+        version = artifactVersion
+        description = file("doc/description.html").readText()
+        changeNotes = file("doc/changeNotes.html").readText()
 
-val pluginGroup = prop("pluginGroup")
-val pluginSchema = prop("pluginSchema")
-val pluginVersion = prop("pluginVersion")
-
-val artifactVersion = "${pluginVersion}-build${intellijPlatform}"
-
-group = pluginGroup
-version = artifactVersion
-
-intellij {
-    sandboxDir.set(".sandbox/${intellijPlatform}-EAP-SNAPSHOT")
-    instrumentCode.set(false)
-
-    pluginName.set(pluginSchema)
-    version.set("${intellijPlatform}-EAP-SNAPSHOT")
-    plugins.set(
-        listOf("com.intellij.java")
-    )
+        ideaVersion {
+            sinceBuild = prop("intellijPlatform")
+            untilBuild = prop("intellijPlatform") + ".*"
+        }
+        vendor {
+            name = "valord577"
+            email = "valord577@gmail.com"
+            url = "https://github.com/valord577/mybatis-navigator"
+        }
+    }
 }
 
 tasks {
-    buildSearchableOptions {
-        enabled = false
+    compileJava {
+        sourceCompatibility = prop("compileJvmTarget")
+        targetCompatibility = prop("compileJvmTarget")
+        options.encoding = "utf-8"
+        options.compilerArgs.add("-Xlint:unchecked")
+        options.compilerArgs.add("-Xlint:deprecation")
     }
+    jar {
+        archiveBaseName = prop("pluginSchema")
+        archiveVersion = artifactVersion
+    }
+    composedJar {
+        archiveBaseName = prop("pluginSchema")
+        archiveVersion = artifactVersion
+    }
+    buildPlugin {
+        archiveBaseName = prop("pluginSchema")
+        archiveVersion = artifactVersion
+    }
+
     publishPlugin {
-        channels.set(
-            listOf("Stable")
-        )
-        token.set(System.getenv(prop("pluginPublishTokenKey")))
-    }
-
-    patchPluginXml {
-        version.set(artifactVersion)
-
-        untilBuild.set("${intellijPlatform}.*")
-
-        pluginDescription.set(file("doc/description.html").readText())
-        changeNotes.set(file("doc/changeNotes.html").readText())
+        token = (System.getenv(prop("pluginPublishTokenKey")))
     }
 }
