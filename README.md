@@ -11,6 +11,6 @@ The Navigator of MyBatis Mapper XML and Java Mapper Interface for IntelliJ IDEA 
 
 ## License
 
-Copyright (c) since 2021 valord577@gmail.com and contributors.
+Copyright (c) since 2020 valord577@gmail.com and contributors.
 
 See the [LICENSE](LICENSE) for Rights and Limitations (GPLv3).
