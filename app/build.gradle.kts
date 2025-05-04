@@ -1,6 +1,7 @@
 fun prop(key: String) = extra[key].toString()
 
-val artifactVersion = "${prop("pluginVersion")}-build${prop("intellijPlatform")}"
+val (intellijMajor, intellijMinor) = prop("intellijBuilds").split(".")
+val artifactVersion = "${prop("pluginVersion")}-build${intellijMajor}"
 
 plugins {
     id("org.jetbrains.intellij.platform")
@@ -18,10 +19,8 @@ repositories {
 }
 dependencies {
     intellijPlatform {
-        create(
-            type = "IC",
-            version = "${prop("intellijPlatform")}-EAP-SNAPSHOT",
-            useInstaller = false
+        intellijIdeaCommunity(
+            "${prop("intellijBuilds")}-EAP-CANDIDATE-SNAPSHOT", useInstaller = false
         )
         bundledPlugin("com.intellij.java")
         jetbrainsRuntime()
@@ -40,8 +39,7 @@ intellijPlatform {
         changeNotes = file("doc/changeNotes.html").readText()
 
         ideaVersion {
-            sinceBuild = prop("intellijPlatform")
-            untilBuild = prop("intellijPlatform") + ".*"
+            untilBuild = provider { null }
         }
         vendor {
             name = "valord577"
