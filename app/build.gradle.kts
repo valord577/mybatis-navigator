@@ -39,6 +39,7 @@ intellijPlatform {
         changeNotes = file("doc/changeNotes.html").readText()
 
         ideaVersion {
+            sinceBuild = intellijMajor
             untilBuild = provider { null }
         }
         vendor {
