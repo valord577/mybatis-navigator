@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: git checkout src
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: inspect openjdk
         run: command -v java && java -version
       - name: build with gradle
