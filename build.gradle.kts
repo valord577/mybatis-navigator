@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.GradleException
 
 
-val compileJvmTarget = JavaVersion.toVersion(ext["CompileJvmTarget"].toString())
+val compileJvmTarget = JavaVersion.toVersion(extra["CompileJvmTarget"].toString())
 val currentJdkVersion = JavaVersion.current()
 if (!(currentJdkVersion.isCompatibleWith(compileJvmTarget))) {
     throw GradleException(
