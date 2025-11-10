@@ -38,7 +38,7 @@ jobs:
       - name: show files as tree
         run: tree -- "${PLUGIN_DIR}"
       - name: upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-artifact
           path: ${{ env.PLUGIN_DIR }}
