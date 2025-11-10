@@ -1,5 +1,12 @@
 pluginManagement {
     repositories {
+        mavenLocal()
+        maven {
+            url = uri("https://maven.aliyun.com/repository/public")
+        }
+        maven {
+            url = uri("https://maven.aliyun.com/repository/gradle-plugin")
+        }
         gradlePluginPortal()
     }
 
@@ -22,13 +29,21 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
-    repositories {}
+    repositories {
+        mavenLocal()
+        maven {
+            url = uri("https://maven.aliyun.com/repository/public")
+        }
+        maven {
+            url = uri("https://maven.aliyun.com/repository/gradle-plugin")
+        }
+    }
 }
 
 include ':app'
 
 rootProject.name = 'mybatis-navigator'
-rootProject.buildFileName = "build.gradle"
+rootProject.buildFileName = "build.gradle.kts"
 
 rootProject.children.forEach(e -> {
     e.buildFileName = "build.gradle.kts"

@@ -14,22 +14,29 @@ jobs:
   build:
     env:
       PLUGIN_DIR: app/build/distributions
-
-    runs-on: ubuntu-latest
-    container: bellsoft/liberica-openjdk-debian:21
-
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.workspace }}
     steps:
-      - name: git checkout src
-        uses: actions/checkout@v4
-      - name: inspect openjdk
-        run: command -v java && java -version
+      - name: clone source
+        run: |
+          git config --global --add safe.directory "*"
+
+          git init
+          git remote add x ${{github.server_url}}/${{ github.repository }}.git
+          git fetch --no-tags --prune --no-recurse-submodules --depth=1 x +${{ github.sha }}
+          git checkout FETCH_HEAD
       - name: build with gradle
         run: |
-          bash gradlew.sh buildPlugin \
-            -Dorg.gradle.daemon=false --warning-mode all \
-            -Dorg.gradle.jvmargs="-Xmx4096m -XX:+UseZGC -Djava.complier=NONE -Dfile.encoding=UTF-8"
-      - name: show build dir
-        run: ls -alh -- "${PLUGIN_DIR}"
+          ${JAVA_HOME_21_X64}/bin/java -Xms64m -Xmx64m -Xint -Dfile.encoding=UTF-8 \
+            -classpath gradle/wrapper/gradle-wrapper.jar  \
+              org.gradle.wrapper.GradleWrapperMain        \
+                -Dorg.gradle.appname=gradlew.py -Dorg.gradle.daemon=false --warning-mode all \
+                buildPlugin
+      - name: show files as tree
+        run: tree -- "${PLUGIN_DIR}"
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
