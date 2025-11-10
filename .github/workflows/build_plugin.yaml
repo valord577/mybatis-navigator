@@ -34,7 +34,6 @@ jobs:
             -classpath gradle/wrapper/gradle-wrapper.jar  \
               org.gradle.wrapper.GradleWrapperMain        \
                 -Dorg.gradle.appname=gradlew.py -Dorg.gradle.daemon=false --warning-mode all \
-                --gradle-distribution-url 'https://services.gradle.org/distributions/gradle-8.13-bin.zip' \
                 buildPlugin
       - name: show files as tree
         run: tree -- "${PLUGIN_DIR}"
