@@ -28,7 +28,7 @@ dependencyResolutionManagement {
 include ':app'
 
 rootProject.name = 'mybatis-navigator'
-rootProject.buildFileName = "build.gradle"
+rootProject.buildFileName = "build.gradle.kts"
 
 rootProject.children.forEach(e -> {
     e.buildFileName = "build.gradle.kts"
